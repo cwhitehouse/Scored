@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/my_avatar"
+	android:orientation="vertical"
+	android:layout_width="@dimen/my_avatar_size"
+	android:layout_height="@dimen/my_avatar_size"
+	android:foreground="@drawable/bg_avatar"
+	android:layout_gravity="center"
+	android:layout_centerInParent="true">
+
+	<ImageView
+		android:id="@+id/my_avatar_image"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:scaleType="centerCrop"/>
+
+	<TextView
+		android:id="@+id/my_avatar_name"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center"
+		android:text="KIP"
+		android:textStyle="bold"
+		android:textSize="18sp"/>
+
+
+</FrameLayout>

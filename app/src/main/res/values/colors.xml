@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<color name="backgroundPrimary">#82AF9B</color>
+	<color name="backgroundPrimaryDark">#5C7D6F</color>
+
+	<color name="backgroundLight">#FAD6B1</color>
+
+	<color name="backgroundSecondary">#FACDAB</color>
+	<color name="backgroundAlternate">#FE9C98</color>
+
+	<color name="backgroundHighlight">#FF4062</color>
+	<color name="backgroundHighlightLight">#FDAEA2</color>
+
+	<color name="foregroundPrimary">#FAFBCE</color>
+	<color name="foregroundSecondary">#82AF9B</color>
+
+	<color name="shadow">#33000000</color>
+	<color name="shadowedGreen">#688C7C</color>
+
+	<color name="heyOne">#5DFFA0</color>
+	<color name="gurlOne">#5197C9</color>
+	<color name="heyTwo">#F5ED90</color>
+
+</resources>

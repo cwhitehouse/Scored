@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/minigolf_score_entry"
+	android:orientation="vertical"
+	android:layout_width="@dimen/minigolf_score_entry_size"
+	android:layout_height="@dimen/minigolf_score_entry_size">
+
+	<View
+		android:id="@+id/minigolf_score_entry_highlight"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="#fff"
+		android:alpha="0.1"/>
+	
+	<TextView
+		android:id="@+id/minigolf_score_entry_score"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="4"
+		android:textStyle="bold"
+		android:textSize="24sp"
+		android:layout_gravity="center" />
+
+</FrameLayout>

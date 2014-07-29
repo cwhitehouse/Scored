@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<LinearLayout
+		android:id="@+id/my_base"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical">
+		<View
+			android:id="@+id/my_status_bar_overlay"
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			android:layout_weight="1"
+			android:alpha="0"/>
+		<View
+			android:id="@+id/my_nav_bar_overlay"
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			android:layout_weight="1"
+			android:alpha="0"/>
+	</LinearLayout>
+
+	<FrameLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:fitsSystemWindows="true">
+		<FrameLayout
+			android:id="@+id/my_content"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:background="@color/backgroundPrimary"/>
+	</FrameLayout>
+
+	<include layout="@layout/my_networking" />
+
+</RelativeLayout>

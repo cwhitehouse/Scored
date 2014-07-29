@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="@dimen/minigolf_score_entry_size"
+	android:layout_height="match_parent">
+
+	<FrameLayout
+		android:layout_width="@dimen/minigolf_score_entry_size"
+		android:layout_height="@dimen/minigolf_score_entry_size">
+		<include layout="@layout/my_avatar" />
+	</FrameLayout>
+
+	<LinearLayout
+		android:id="@+id/minigolf_score_entries"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"/>
+
+</LinearLayout>

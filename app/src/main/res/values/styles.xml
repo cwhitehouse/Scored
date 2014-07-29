@@ -1,0 +1,49 @@
+<resources>
+
+	<style name="MyBase" parent="android:Theme.Holo">
+		<item name="android:windowBackground">@color/backgroundPrimary</item>
+		<item name="android:textColorPrimary">@color/foregroundPrimary</item>
+		<item name="android:textColorSecondary">@color/foregroundPrimary</item>
+		<item name="android:editTextStyle">@style/My.Widget.EditText</item>
+		<item name="android:buttonStyle">@style/My.Widget.Button</item>
+		<item name="android:listViewStyle">@style/My.ListView</item>
+		<item name="android:actionBarStyle">@style/My.ActionBar</item>
+	</style>
+
+	<style name="My" parent="MyBase"></style>
+
+	<style name="My.Widget.EditText" parent="@android:style/Widget.Holo.EditText">
+		<item name="android:textColor">@color/foregroundPrimary</item>
+		<item name="android:textColorHint">@color/foregroundSecondary</item>
+		<item name="android:padding">@dimen/padding2x</item>
+	</style>
+
+	<style name="My.Widget.Button" parent="@android:style/Widget.Holo.Button">
+		<item name="android:textColor">@color/foregroundPrimary</item>
+		<item name="android:padding">@dimen/padding2x</item>
+	</style>
+
+	<style name="My.NoActionBar">
+		<item name="android:windowActionBar">false</item>
+		<item name="android:windowNoTitle">true</item>
+	</style>
+
+	<style name="My.ListView" parent="@android:style/Widget.ListView">
+		<item name="android:clipToPadding">false</item>
+		<item name="android:scrollbarStyle">outsideOverlay</item>
+		<item name="android:divider">@null</item>
+	</style>
+
+	<style name="My.ActionBar" parent="android:Widget.Holo.ActionBar.Solid">
+		<item name="android:background">@color/backgroundPrimary</item>
+		<item name="android:displayOptions">showHome|showTitle</item>
+	</style>
+
+
+	<style name="textShadowDark">
+		<item name="android:shadowColor">@color/shadow</item>
+		<item name="android:shadowDy">-2</item>
+		<item name="android:shadowRadius">0</item>
+	</style>
+
+</resources>
