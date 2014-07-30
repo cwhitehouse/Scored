@@ -14,7 +14,7 @@
 
 	<style name="My.Widget.EditText" parent="@android:style/Widget.Holo.EditText">
 		<item name="android:textColor">@color/foregroundPrimary</item>
-		<item name="android:textColorHint">@color/foregroundSecondary</item>
+		<item name="android:textColorHint">@color/foregroundAlternate</item>
 		<item name="android:padding">@dimen/padding2x</item>
 	</style>
 
@@ -37,13 +37,6 @@
 	<style name="My.ActionBar" parent="android:Widget.Holo.ActionBar.Solid">
 		<item name="android:background">@color/backgroundPrimary</item>
 		<item name="android:displayOptions">showHome|showTitle</item>
-	</style>
-
-
-	<style name="textShadowDark">
-		<item name="android:shadowColor">@color/shadow</item>
-		<item name="android:shadowDy">-2</item>
-		<item name="android:shadowRadius">0</item>
 	</style>
 
 </resources>

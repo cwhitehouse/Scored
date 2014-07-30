@@ -29,7 +29,8 @@
 	============================================================= -->
 
 	<dimen name="minigolf_score_entry_size">60dp</dimen>
+	<dimen name="minigolf_score_entry_score_highlight_size">44dp</dimen>
 
-	<dimen name="my_avatar_size">45dp</dimen>
+	<dimen name="my_avatar_size">50dp</dimen>
 
 </resources>

@@ -28,6 +28,9 @@ public abstract class MyStub {
 		vParent = parent;
 		if(vParent != null)
 			vStub = parent.findViewById(getStubID());
+
+		if(vStub == null)
+			vStub = parent;
 	}
 
 	//================================================================================

@@ -4,8 +4,7 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:shape="oval">
 
-	<stroke
-		android:color="@color/backgroundPrimaryLight"
-		android:width="2dp" />
+	<solid
+		android:color="@color/backgroundHighlight" />
 
 </shape>

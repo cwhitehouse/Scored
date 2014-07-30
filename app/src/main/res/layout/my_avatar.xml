@@ -23,7 +23,7 @@
 		android:layout_gravity="center"
 		android:text="KIP"
 		android:textStyle="bold"
-		android:textSize="18sp"/>
+		android:textSize="16sp"/>
 
 
 </FrameLayout>

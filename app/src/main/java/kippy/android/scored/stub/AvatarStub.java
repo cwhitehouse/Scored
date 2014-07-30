@@ -34,6 +34,8 @@ public class AvatarStub extends MyStub {
 
 	public AvatarStub(BaseActivity activity, View parent) {
 		super(activity, parent);
+
+		vName = (TextView) vStub.findViewById(R.id.my_avatar_name);
 	}
 
 	//================================================================================
