@@ -41,16 +41,18 @@ public class MinigolfPlayerScore extends MyStub {
 	// Constructor
 	//================================================================================
 
-	public MinigolfPlayerScore(BaseActivity activity, View parent, int playerIndex, int holeCount) {
+	public MinigolfPlayerScore(BaseActivity activity, View parent, AvatarStub avatar, int playerIndex, int holeCount) {
 		super(activity, parent);
 
 		mPlayerIndex = playerIndex;
 
-		vAvatar = new AvatarStub(activity, parent);
+		vAvatar = avatar;
+		if(vAvatar == null)
+			vAvatar = new AvatarStub(activity, parent);
 
 		vScoresWrapper = (LinearLayout) vStub.findViewById(R.id.minigolf_score_entries);
 		vScores = new MinigolfScoreEntry[holeCount];
-		for(int i=0 ; i<holeCount ; i++) {
+		for(int i=0 ; i<1 ; i++) {
 			MinigolfScoreEntry scoreEntry = MinigolfScoreEntry.inflate(activity, vScoresWrapper, i%2 == 0);
 
 			int score;
@@ -87,10 +89,10 @@ public class MinigolfPlayerScore extends MyStub {
 	// Static Creation
 	//================================================================================
 
-	public static MinigolfPlayerScore inflate(BaseActivity activity, ViewGroup parent, int playerIndex, int holeCount) {
+	public static MinigolfPlayerScore inflate(BaseActivity activity, ViewGroup parent, AvatarStub avatar, int playerIndex, int holeCount) {
 		LayoutInflater layoutInflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View baseView = layoutInflater.inflate(R.layout.minigolf_score_sheet, parent, false);
 
-		return new MinigolfPlayerScore(activity, baseView, playerIndex, holeCount);
+		return new MinigolfPlayerScore(activity, baseView, avatar, playerIndex, holeCount);
 	}
 }

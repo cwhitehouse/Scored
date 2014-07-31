@@ -2,22 +2,9 @@
 
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/minigolf_score_entries"
 	android:orientation="vertical"
 	android:layout_width="0dp"
 	android:layout_weight="1"
 	android:layout_height="match_parent"
-	android:gravity="center">
-
-	<FrameLayout
-		android:layout_width="@dimen/minigolf_score_entry_size"
-		android:layout_height="@dimen/minigolf_score_entry_size">
-		<include layout="@layout/my_avatar" />
-	</FrameLayout>
-
-	<LinearLayout
-		android:id="@+id/minigolf_score_entries"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:orientation="vertical"/>
-
-</LinearLayout>
+	android:gravity="center" />
