@@ -24,9 +24,21 @@
 		android:id="@+id/minigolf_score_entry_score"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="4"
 		android:textStyle="bold"
 		android:textSize="36sp"
-		android:layout_gravity="center" />
+		android:layout_gravity="center"
+		android:alpha="0"/>
+
+	<TextView
+		android:id="@+id/minigolf_score_entry_add"
+		android:layout_width="@dimen/minigolf_score_entry_score_highlight_size"
+		android:layout_height="@dimen/minigolf_score_entry_score_highlight_size"
+		android:background="@drawable/bg_pressable"
+		android:text="+"
+		android:textColor="@color/foregroundAlternate"
+		android:textSize="32sp"
+		android:textStyle="bold"
+		android:gravity="center"
+		android:layout_gravity="center"/>
 
 </FrameLayout>

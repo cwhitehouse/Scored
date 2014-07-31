@@ -19,10 +19,18 @@ import kippy.android.scored.util.MathUtils;
  */
 public class MinigolfFragment extends MyFragment {
 
+	//================================================================================
+	// Constants
+	//================================================================================
+
 	private static final int NUM_HOLES = 18;
 	private static final float SHADOW_MAX_ALPHA = 0.1f;
 
 	String[] mPlayers = {"KIP","TOM","AAC","EBG"};
+
+	//================================================================================
+	// Variables
+	//================================================================================
 
 	LinearLayout vAvatars;
 
@@ -33,6 +41,13 @@ public class MinigolfFragment extends MyFragment {
 
 	LinearLayout vPlayers;
 	MinigolfPlayerScore[] vPlayerScores;
+
+	int mScoringPlayer = -1;
+	int mScoringRound = -1;
+
+	//================================================================================
+	// Life Cycle Management
+	//================================================================================
 
 	@Override
 	public int getLayoutID() {
@@ -73,12 +88,16 @@ public class MinigolfFragment extends MyFragment {
 			AvatarStub avatar = AvatarStub.inflate(getMyActivity(), avatarWrapper);
 			avatarWrapper.addView(avatar.getView());
 
-			MinigolfPlayerScore playerScore = MinigolfPlayerScore.inflate(getMyActivity(), vPlayers, avatar, i, NUM_HOLES);
+			MinigolfPlayerScore playerScore = MinigolfPlayerScore.inflate(this, vPlayers, avatar, i, NUM_HOLES);
 			playerScore.getAvatar().layoutAvatar(null, mPlayers[i]);
 
 			vPlayers.addView(playerScore.getView());
 			vPlayerScores[i] = playerScore;
 		}
 	}
+
+	//================================================================================
+	// Round Management
+	//================================================================================
 
 }

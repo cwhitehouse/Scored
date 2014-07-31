@@ -15,8 +15,16 @@ import kippy.android.scored.stub.MyStub;
  */
 public class MinigolfHoleEntry extends MyStub {
 
+	//================================================================================
+	// Variables
+	//================================================================================
+
 	View vHighlight;
 	TextView vNumber;
+
+	//================================================================================
+	// Constructor
+	//================================================================================
 
 	public MinigolfHoleEntry(BaseActivity activity, View parent, boolean shouldHighlight) {
 		super(activity, parent);
@@ -27,10 +35,18 @@ public class MinigolfHoleEntry extends MyStub {
 		vNumber = (TextView) vStub.findViewById(R.id.minigolf_hole_entry_number);
 	}
 
+	//================================================================================
+	// Stubbage
+	//================================================================================
+
 	@Override
 	public int getStubID() {
 		return R.id.minigolf_hole_entry;
 	}
+
+	//================================================================================
+	// Layout
+	//================================================================================
 
 	public void layout(int number) {
 		if(number > 0) {
