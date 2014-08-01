@@ -9,6 +9,4 @@
 	android:layout_height="match_parent"
 	android:gravity="center">
 
-	<include layout="@layout/minigolf_score_entry" />
-
 </LinearLayout>

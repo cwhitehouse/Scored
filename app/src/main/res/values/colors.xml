@@ -11,6 +11,8 @@
 	<color name="foregroundPrimary">#FFF</color>
 	<color name="foregroundSecondary">@color/app_green_light</color>
 
+	<color name="foregroundHighlight">@color/app_yellow</color>
+
 	<color name="foregroundAlternate">@color/app_green</color>
 
 	<!-- ==============================================

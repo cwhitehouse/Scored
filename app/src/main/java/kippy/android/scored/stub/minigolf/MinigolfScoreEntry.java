@@ -4,10 +4,14 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.OvershootInterpolator;
 import android.widget.TextView;
 
 import kippy.android.scored.R;
 import kippy.android.scored.activity.BaseActivity;
+import kippy.android.scored.animation.BoomerangInterpolator;
+import kippy.android.scored.animation.SpringInterpolator;
 import kippy.android.scored.stub.MyStub;
 
 /**
@@ -59,21 +63,29 @@ public class MinigolfScoreEntry extends MyStub {
 
 	public void layout(int score) {
 		if(score > 0) {
-			vScore.setText(String.valueOf(score));
 			if(score == 1) {
-				vScoreHighlight.animate().alpha(1f);
-				vScore.setTextColor(getContext().getResources().getColor(R.color.foregroundAlternate));
+				vScoreHighlight.setScaleX(0.2f);
+				vScoreHighlight.setScaleY(0.2f);
+				vScoreHighlight.animate().alpha(1f).scaleX(1f).scaleY(1f).setInterpolator(new OvershootInterpolator(3f));
+				vScore.animate().alpha(0f);
 			} else {
-				vScoreHighlight.animate().alpha(0f);
-				vScore.setTextColor(getContext().getResources().getColor(R.color.foregroundPrimary));
+				vScore.setText(String.valueOf(score));
+				vScoreHighlight.animate().alpha(0f).setInterpolator(new DecelerateInterpolator());
+				vScore.animate().alpha(1f);
 			}
-			vAdd.setAlpha(0f);
+			vAdd.animate().alpha(0f);
 		} else {
-			vScore.setVisibility(View.INVISIBLE);
-			vScoreHighlight.setAlpha(0f);
-			vAdd.setAlpha(1f);
+			vScore.animate().alpha(0f);
+			vScoreHighlight.animate().alpha(0f);
+			vAdd.animate().alpha(1f);
 		}
 		mCurrentScore = score;
+	}
+
+	public void highlightScore() {
+		vScore.setAlpha(1f);
+		vScore.setTextColor(getContext().getResources().getColor(R.color.foregroundHighlight));
+		vScore.animate().scaleY(1.35f).scaleX(1.35f).alpha(1f).setInterpolator(new BoomerangInterpolator(new SpringInterpolator(), new DecelerateInterpolator()));
 	}
 
 	public int getScore() {

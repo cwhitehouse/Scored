@@ -12,12 +12,17 @@
 		android:layout_height="match_parent"
 		android:background="@color/backgroundPrimaryXLight"/>
 	
-	<View
+	<TextView
 		android:id="@+id/minigolf_score_entry_score_highlight"
 		android:layout_width="@dimen/minigolf_score_entry_score_highlight_size"
 		android:layout_height="@dimen/minigolf_score_entry_score_highlight_size"
 		android:background="@drawable/bg_score_highlight"
 		android:layout_gravity="center"
+		android:text="1"
+		android:gravity="center"
+		android:textColor="@color/foregroundAlternate"
+		android:textStyle="bold"
+		android:textSize="24sp"
 		android:alpha="0"/>
 	
 	<TextView
@@ -39,6 +44,7 @@
 		android:textSize="32sp"
 		android:textStyle="bold"
 		android:gravity="center"
-		android:layout_gravity="center"/>
+		android:layout_gravity="center"
+		android:alpha="1"/>
 
 </FrameLayout>

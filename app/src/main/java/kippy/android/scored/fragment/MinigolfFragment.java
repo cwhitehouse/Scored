@@ -1,11 +1,16 @@
 package kippy.android.scored.fragment;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+
+import java.util.ArrayList;
 
 import kippy.android.scored.R;
 import kippy.android.scored.stub.AvatarStub;
@@ -42,7 +47,7 @@ public class MinigolfFragment extends MyFragment {
 	LinearLayout vPlayers;
 	MinigolfPlayerScore[] vPlayerScores;
 
-	int mCurrentRound = 0;
+	int mCurrentHole = 0;
 
 	int mScoringPlayer = -1;
 	int mScoringRound = -1;
@@ -73,13 +78,9 @@ public class MinigolfFragment extends MyFragment {
 
 		LayoutInflater layoutInflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		vHoles = (LinearLayout) view.findViewById(R.id.minigolf_holes);
-		for(int i=0 ; i<1 ; i++) {
-			MinigolfHoleEntry minigolfHoleEntry = MinigolfHoleEntry.inflate(getMyActivity(), vHoles, i%2 == 0);
-			minigolfHoleEntry.layout(i+1);
+		inflateNextHole(false);
 
-			vHoles.addView(minigolfHoleEntry.getView());
-		}
-
+		mUserIDs = new ArrayList<Integer>();
 		vAvatars = (LinearLayout) view.findViewById(R.id.minigolf_avatars);
 		vPlayers = (LinearLayout) view.findViewById(R.id.minigolf_players);
 		vPlayerScores = new MinigolfPlayerScore[mPlayers.length];
@@ -95,7 +96,11 @@ public class MinigolfFragment extends MyFragment {
 
 			vPlayers.addView(playerScore.getView());
 			vPlayerScores[i] = playerScore;
+
+			mUserIDs.add(i);
 		}
+
+		mHandler.postDelayed(mSetScoreRunnable, ADD_SCORE_DELAY);
 	}
 
 	//================================================================================
@@ -103,7 +108,82 @@ public class MinigolfFragment extends MyFragment {
 	//================================================================================
 
 	public void checkScores() {
-		
+		int lowestScore = Integer.MAX_VALUE;
+		for(MinigolfPlayerScore playerScore : vPlayerScores) {
+			int score = playerScore.getScore(mCurrentHole);
+			if(score < lowestScore)
+				lowestScore = score;
+		}
+
+		if(lowestScore > 0) {
+			for(MinigolfPlayerScore playerScore : vPlayerScores) {
+				if(mCurrentHole < 17)
+					playerScore.inflateNextHole();
+				if(lowestScore > 1 && playerScore.getScore(mCurrentHole) == lowestScore)
+					playerScore.highlightScore(mCurrentHole);
+			}
+
+			mUserIDs.clear();
+			for(int i=0 ; i<mPlayers.length ; i++)
+				mUserIDs.add(i);
+
+			mCurrentHole++;
+			if(mCurrentHole < 18)
+				inflateNextHole(true);
+		}
+	}
+
+	public void inflateNextHole(boolean animated) {
+		MinigolfHoleEntry minigolfHoleEntry = MinigolfHoleEntry.inflate(getMyActivity(), vHoles, mCurrentHole%2 == 0);
+		minigolfHoleEntry.layout(mCurrentHole+1);
+
+		vHoles.addView(minigolfHoleEntry.getView());
+
+		if(animated) {
+			minigolfHoleEntry.getView().setScaleY(0f);
+			minigolfHoleEntry.getView().animate().scaleY(1f).setListener(new AnimatorListenerAdapter() {
+				@Override
+				public void onAnimationEnd(Animator animation) {
+					super.onAnimationEnd(animation);
+					vScroll.smoothScrollTo(0,Integer.MAX_VALUE);
+				}
+			});
+		}
+	}
+
+	//================================================================================
+	// Auto Score File
+	//================================================================================
+
+	private static final long ADD_SCORE_DELAY = 250l;
+
+	private ArrayList<Integer> mUserIDs;
+	private Handler mHandler = new Handler();
+
+	private Runnable mSetScoreRunnable = new Runnable() {
+		@Override
+		public void run() {
+			int randIndex = MathUtils.randomInt(0,mUserIDs.size()-1);
+			int userID = mUserIDs.remove(randIndex);
+
+			vPlayerScores[userID].setScore(mCurrentHole, generateRandomScore());
+			checkScores();
+
+			if(mCurrentHole < 18)
+				mHandler.postDelayed(this, ADD_SCORE_DELAY);
+		}
+	};
+
+	private int generateRandomScore() {
+		int randInt = MathUtils.randomInt(0,1);
+		if(randInt == 0)
+			return MathUtils.randomInt(2,3);
+
+		randInt = MathUtils.randomInt(1,45);
+		if(randInt == 45)
+			return 1;
+
+		return MathUtils.randomInt(1,6);
 	}
 
 }

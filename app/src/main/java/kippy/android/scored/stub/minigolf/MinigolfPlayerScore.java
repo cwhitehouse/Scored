@@ -37,7 +37,7 @@ public class MinigolfPlayerScore extends MyStub {
 
 	@Override
 	public int getStubID() {
-		return R.id.minigolf_score_entry;
+		return R.id.minigolf_score_entries;
 	}
 
 	//================================================================================
@@ -66,24 +66,39 @@ public class MinigolfPlayerScore extends MyStub {
 	//================================================================================
 
 	public void inflateNextHole() {
+		inflateNextHole(true);
+	}
+
+	private void inflateNextHole(boolean shouldAnimate) {
 		mCurrentHole++;
-		vScores[mCurrentHole] = MinigolfScoreEntry.inflate(getContext(), vScoresWrapper, mCurrentHole %2==0);
+		vScores[mCurrentHole] = MinigolfScoreEntry.inflate(getContext(), vScoresWrapper, mCurrentHole % 2 == 0);
 		vScoresWrapper.addView(vScores[mCurrentHole].getView());
+
+		if(shouldAnimate) {
+			vScores[mCurrentHole].getView().setScaleY(0f);
+			vScores[mCurrentHole].getView().animate().scaleY(1f);
+		}
 	}
 
 	public void setScore(int hole, int score) {
-		vScores[hole].layout(score);
+		if(vScores[hole] != null)
+			vScores[hole].layout(score);
 	}
 
-	public boolean hasScoreForRound(int hole) {
+	public boolean hasScore(int hole) {
 		return vScores[hole] != null && vScores[hole].hasScore();
 	}
 
-	public int getScoreForRound(int hole) {
+	public int getScore(int hole) {
 		if(vScores[hole] != null)
 			return vScores[hole].getScore();
 		else
 			return -1;
+	}
+
+	public void highlightScore(int hole) {
+		if(vScores[hole] != null)
+			vScores[hole].highlightScore();
 	}
 
 	//================================================================================
