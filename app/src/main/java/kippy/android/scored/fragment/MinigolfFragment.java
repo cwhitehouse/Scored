@@ -42,6 +42,8 @@ public class MinigolfFragment extends MyFragment {
 	LinearLayout vPlayers;
 	MinigolfPlayerScore[] vPlayerScores;
 
+	int mCurrentRound = 0;
+
 	int mScoringPlayer = -1;
 	int mScoringRound = -1;
 
@@ -99,5 +101,9 @@ public class MinigolfFragment extends MyFragment {
 	//================================================================================
 	// Round Management
 	//================================================================================
+
+	public void checkScores() {
+		
+	}
 
 }

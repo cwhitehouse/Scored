@@ -24,6 +24,8 @@ public class MinigolfScoreEntry extends MyStub {
 	TextView vScore;
 	View vScoreHighlight;
 
+	TextView vAdd;
+
 	int mCurrentScore = -1;
 
 	//================================================================================
@@ -47,6 +49,8 @@ public class MinigolfScoreEntry extends MyStub {
 
 		vScore = (TextView) vStub.findViewById(R.id.minigolf_score_entry_score);
 		vScoreHighlight = vStub.findViewById(R.id.minigolf_score_entry_score_highlight);
+
+		vAdd = (TextView) vStub.findViewById(R.id.minigolf_score_entry_add);
 	}
 
 	//================================================================================
@@ -63,10 +67,17 @@ public class MinigolfScoreEntry extends MyStub {
 				vScoreHighlight.animate().alpha(0f);
 				vScore.setTextColor(getContext().getResources().getColor(R.color.foregroundPrimary));
 			}
+			vAdd.setAlpha(0f);
 		} else {
 			vScore.setVisibility(View.INVISIBLE);
 			vScoreHighlight.setAlpha(0f);
+			vAdd.setAlpha(1f);
 		}
+		mCurrentScore = score;
+	}
+
+	public int getScore() {
+		return mCurrentScore;
 	}
 
 	public boolean hasScore() {

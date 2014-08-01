@@ -21,7 +21,7 @@ public class MinigolfPlayerScore extends MyStub {
 	//================================================================================
 
 	protected int mPlayerIndex = -1;
-	protected int mCurrentRound = -1;
+	protected int mCurrentHole = -1;
 	protected int mHoleCount = -1;
 
 	MinigolfFragment mFragment;
@@ -58,21 +58,32 @@ public class MinigolfPlayerScore extends MyStub {
 		vScoresWrapper = (LinearLayout) vStub.findViewById(R.id.minigolf_score_entries);
 		vScores = new MinigolfScoreEntry[mHoleCount];
 
-		inflateNextRound();
+		inflateNextHole();
 	}
 
 	//================================================================================
 	// Layout
 	//================================================================================
 
-	public void inflateNextRound() {
-		mCurrentRound++;
-		vScores[mCurrentRound] = MinigolfScoreEntry.inflate(getContext(), vScoresWrapper, mCurrentRound%2==0);
-		vScoresWrapper.addView(vScores[mCurrentRound].getView());
+	public void inflateNextHole() {
+		mCurrentHole++;
+		vScores[mCurrentHole] = MinigolfScoreEntry.inflate(getContext(), vScoresWrapper, mCurrentHole %2==0);
+		vScoresWrapper.addView(vScores[mCurrentHole].getView());
 	}
 
 	public void setScore(int hole, int score) {
 		vScores[hole].layout(score);
+	}
+
+	public boolean hasScoreForRound(int hole) {
+		return vScores[hole] != null && vScores[hole].hasScore();
+	}
+
+	public int getScoreForRound(int hole) {
+		if(vScores[hole] != null)
+			return vScores[hole].getScore();
+		else
+			return -1;
 	}
 
 	//================================================================================
