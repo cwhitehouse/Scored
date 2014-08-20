@@ -13,7 +13,7 @@ import kippy.android.scored.stub.MyStub;
 /**
  * Created by christianwhitehouse on 7/30/14.
  */
-public class MinigolfHoleEntry extends MyStub {
+public class MinigolfRoundEntry extends MyStub {
 
 	//================================================================================
 	// Variables
@@ -26,13 +26,13 @@ public class MinigolfHoleEntry extends MyStub {
 	// Constructor
 	//================================================================================
 
-	public MinigolfHoleEntry(BaseActivity activity, View parent, boolean shouldHighlight) {
+	public MinigolfRoundEntry(BaseActivity activity, View parent, boolean shouldHighlight) {
 		super(activity, parent);
 
-		vHighlight = vStub.findViewById(R.id.minigolf_hole_entry_highlight);
+		vHighlight = vStub.findViewById(R.id.minigolf_round_entry_highlight);
 		if(shouldHighlight) vHighlight.setVisibility(View.VISIBLE); else vHighlight.setVisibility(View.GONE);
 
-		vNumber = (TextView) vStub.findViewById(R.id.minigolf_hole_entry_number);
+		vNumber = (TextView) vStub.findViewById(R.id.minigolf_round_entry_number);
 	}
 
 	//================================================================================
@@ -41,7 +41,7 @@ public class MinigolfHoleEntry extends MyStub {
 
 	@Override
 	public int getStubID() {
-		return R.id.minigolf_hole_entry;
+		return R.id.minigolf_rond_entry;
 	}
 
 	//================================================================================
@@ -56,15 +56,20 @@ public class MinigolfHoleEntry extends MyStub {
 			vNumber.setVisibility(View.GONE);
 	}
 
+	public void layout(String text) {
+		vNumber.setText(text);
+		vStub.setBackgroundResource(R.color.backgroundPrimaryDark);
+	}
+
 	//================================================================================
 	// Static Creation
 	//================================================================================
 
-	public static MinigolfHoleEntry inflate(BaseActivity activity, ViewGroup parent, boolean shouldHighlight) {
+	public static MinigolfRoundEntry inflate(BaseActivity activity, ViewGroup parent, boolean shouldHighlight) {
 		LayoutInflater layoutInflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		View baseView = layoutInflater.inflate(R.layout.minigolf_hole_entry, parent, false);
+		View baseView = layoutInflater.inflate(R.layout.minigolf_round_entry, parent, false);
 
-		return new MinigolfHoleEntry(activity, baseView, shouldHighlight);
+		return new MinigolfRoundEntry(activity, baseView, shouldHighlight);
 	}
 
 }

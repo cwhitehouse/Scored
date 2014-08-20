@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.LinearLayout;
 
 import kippy.android.scored.R;
@@ -21,10 +22,11 @@ public class MinigolfPlayerScore extends MyStub {
 	//================================================================================
 
 	protected int mPlayerIndex = -1;
-	protected int mCurrentHole = -1;
-	protected int mHoleCount = -1;
+	protected int mCurrentRound = -1;
+	protected int mRoundCount = -1;
 
-	MinigolfFragment mFragment;
+	MinigolfFragment mMinigolfFragment;
+	MinigolfScoreTotal vTotal;
 
 	protected AvatarStub vAvatar;
 
@@ -44,61 +46,85 @@ public class MinigolfPlayerScore extends MyStub {
 	// Constructor
 	//================================================================================
 
-	public MinigolfPlayerScore(MinigolfFragment fragment, View parent, AvatarStub avatar, int playerIndex, int holeCount) {
+	public MinigolfPlayerScore(MinigolfFragment fragment, View parent, AvatarStub avatar, int playerIndex, int roundCount) {
 		super(fragment.getMyActivity(), parent);
-		mFragment = fragment;
+		mMinigolfFragment = fragment;
 
 		mPlayerIndex = playerIndex;
-		mHoleCount = holeCount;
+		mRoundCount = roundCount;
 
 		vAvatar = avatar;
 		if(vAvatar == null)
 			vAvatar = new AvatarStub(getContext(), parent);
 
-		vScoresWrapper = (LinearLayout) vStub.findViewById(R.id.minigolf_score_entries);
-		vScores = new MinigolfScoreEntry[mHoleCount];
+		vTotal = new MinigolfScoreTotal(fragment, parent, mPlayerIndex);
 
-		inflateNextHole();
+		vScoresWrapper = (LinearLayout) vStub.findViewById(R.id.minigolf_score_entries);
+		vScores = new MinigolfScoreEntry[mRoundCount];
+
+		inflateNextRound(false);
 	}
 
 	//================================================================================
 	// Layout
 	//================================================================================
 
-	public void inflateNextHole() {
-		inflateNextHole(true);
+	public void inflateNextRound() {
+		inflateNextRound(true);
 	}
 
-	private void inflateNextHole(boolean shouldAnimate) {
-		mCurrentHole++;
-		vScores[mCurrentHole] = MinigolfScoreEntry.inflate(getContext(), vScoresWrapper, mCurrentHole % 2 == 0);
-		vScoresWrapper.addView(vScores[mCurrentHole].getView());
+	private void inflateNextRound(boolean shouldAnimate) {
+		mCurrentRound++;
+		vScores[mCurrentRound] = MinigolfScoreEntry.inflate(mMinigolfFragment, vScoresWrapper, mCurrentRound, mPlayerIndex);
+		vScoresWrapper.addView(vScores[mCurrentRound].getView(), mCurrentRound);
 
 		if(shouldAnimate) {
-			vScores[mCurrentHole].getView().setScaleY(0f);
-			vScores[mCurrentHole].getView().animate().scaleY(1f);
+			vScores[mCurrentRound].getView().setPivotY(0);
+			vScores[mCurrentRound].getView().setScaleY(0f);
+			vScores[mCurrentRound].getView().animate().scaleY(1f).setInterpolator(new DecelerateInterpolator());
+
+			vTotal.getView().setTranslationY(-getContext().getResources().getDimensionPixelSize(R.dimen.minigolf_score_entry_size));
+			vTotal.getView().animate().translationY(0f).setInterpolator(new DecelerateInterpolator());
 		}
 	}
 
-	public void setScore(int hole, int score) {
-		if(vScores[hole] != null)
-			vScores[hole].layout(score);
+	public int getTotalScore() {
+		int total = 0;
+		for(MinigolfScoreEntry scoreEntry : vScores) {
+			if(scoreEntry != null)
+				total += scoreEntry.getScore();
+		}
+		return total;
 	}
 
-	public boolean hasScore(int hole) {
-		return vScores[hole] != null && vScores[hole].hasScore();
+	public void updateTotalScore(int total, boolean isWinning) {
+		vTotal.layout(total, isWinning);
 	}
 
-	public int getScore(int hole) {
-		if(vScores[hole] != null)
-			return vScores[hole].getScore();
+	public void setScore(int round, int score) {
+		if(vScores[round] != null)
+			vScores[round].layout(score);
+	}
+
+	public boolean hasScore(int round) {
+		return vScores[round] != null && vScores[round].hasScore();
+	}
+
+	public int getScore(int round) {
+		if(vScores[round] != null)
+			return vScores[round].getScore();
 		else
 			return -1;
 	}
 
-	public void highlightScore(int hole) {
-		if(vScores[hole] != null)
-			vScores[hole].highlightScore();
+	public void highlightScore(int round) {
+		if(vScores[round] != null)
+			vScores[round].highlightScore();
+	}
+
+	public void unHighlightScore(int round) {
+		if(vScores[round] != null)
+			vScores[round].unHighlightScore();
 	}
 
 	//================================================================================
@@ -113,10 +139,10 @@ public class MinigolfPlayerScore extends MyStub {
 	// Static Creation
 	//================================================================================
 
-	public static MinigolfPlayerScore inflate(MinigolfFragment fragment, ViewGroup parent, AvatarStub avatar, int playerIndex, int holeCount) {
+	public static MinigolfPlayerScore inflate(MinigolfFragment fragment, ViewGroup parent, AvatarStub avatar, int playerIndex, int roundCount) {
 		LayoutInflater layoutInflater = (LayoutInflater) fragment.getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View baseView = layoutInflater.inflate(R.layout.minigolf_score_sheet, parent, false);
 
-		return new MinigolfPlayerScore(fragment, baseView, avatar, playerIndex, holeCount);
+		return new MinigolfPlayerScore(fragment, baseView, avatar, playerIndex, roundCount);
 	}
 }

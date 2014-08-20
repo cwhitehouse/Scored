@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/minigolf_score_total"
+	android:layout_width="match_parent"
+	android:layout_height="@dimen/minigolf_score_entry_size"
+	android:background="@color/backgroundPrimaryDark">
+
+	<TextView
+		android:id="@+id/minigolf_score_total_score"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:textStyle="bold"
+		android:textSize="36sp"
+		android:layout_gravity="center"
+		android:alpha="0"/>
+
+</FrameLayout>

@@ -2,6 +2,7 @@ package kippy.android.scored.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.ViewGroup;
 
 import kippy.android.scored.R;
 
@@ -14,9 +15,13 @@ public abstract class BaseActivity extends Activity {
 	// Constants
 	//================================================================================
 
-	public static final int ANIMATION_STYLE_SLIDE_SIDEWAYS = 1;
-	public static final int ANIMATION_STYLE_SLIDE_UP = 2;
-	public static final int ANIMATION_STYLE_FADE_BACK = 3;
+	protected static enum AnimationStyle {
+		None,
+		SlideSideways,
+		SlideUp,
+		FadeBack,
+		Dialog,
+	}
 
 	//================================================================================
 	// Static Variables
@@ -34,6 +39,7 @@ public abstract class BaseActivity extends Activity {
 
 		animateIn();
 		setContentView(getLayoutID());
+		getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 	}
 
 	@Override
@@ -66,8 +72,8 @@ public abstract class BaseActivity extends Activity {
 
 	public abstract int getLayoutID();
 
-	public int getAnimationStyle() {
-		return 0;
+	public AnimationStyle getAnimationStyle() {
+		return AnimationStyle.None;
 	}
 
 	//================================================================================
@@ -82,60 +88,66 @@ public abstract class BaseActivity extends Activity {
 		overrideActivityAnimations(getAnimationStyle(), false);
 	}
 
-	public void overrideActivityAnimations(int animationStyle, boolean opening) {
+	public void overrideActivityAnimations(AnimationStyle animationStyle, boolean opening) {
 		int enterAnimation = opening ? getInEnterAnimation(animationStyle) : getOutEnterAnimation(animationStyle);
 		int exitAnimation = opening ? getInExitAnimation(animationStyle) : getOutExitAnimation(animationStyle);
 		if(enterAnimation != 0 || exitAnimation != 0)
 			overridePendingTransition(enterAnimation,exitAnimation);
 	}
 
-	private int getInEnterAnimation(int animationStyle) {
+	private int getInEnterAnimation(AnimationStyle animationStyle) {
 		switch(animationStyle) {
-			case ANIMATION_STYLE_SLIDE_SIDEWAYS:
+			case SlideSideways:
 				return R.anim.activity_trans_slide_left_in;
-			case ANIMATION_STYLE_SLIDE_UP:
+			case SlideUp:
 				return R.anim.activity_trans_slide_up_in;
-			case ANIMATION_STYLE_FADE_BACK:
-				return R.anim.activity_trans_scaleup_in;
-			default:
-				return 0;
-		}
-	}
-
-	private int getInExitAnimation(int animationStyle) {
-		switch(animationStyle) {
-			case ANIMATION_STYLE_SLIDE_SIDEWAYS:
-				return R.anim.activity_trans_nudge_left;
-			case ANIMATION_STYLE_SLIDE_UP:
-				return R.anim.activity_trans_scaleback;
-			case ANIMATION_STYLE_FADE_BACK:
-				return R.anim.activity_trans_scaleup_out;
-			default:
-				return 0;
-		}
-	}
-
-	private int getOutEnterAnimation(int animationStyle) {
-		switch(animationStyle) {
-			case ANIMATION_STYLE_SLIDE_SIDEWAYS:
-				return R.anim.activity_trans_nudge_right;
-			case ANIMATION_STYLE_SLIDE_UP:
-				return R.anim.activity_trans_scaleup;
-			case ANIMATION_STYLE_FADE_BACK:
+			case FadeBack:
+			case Dialog:
 				return R.anim.activity_trans_scaleback_in;
 			default:
 				return 0;
 		}
 	}
 
-	private int getOutExitAnimation(int animationStyle) {
+	private int getInExitAnimation(AnimationStyle animationStyle) {
 		switch(animationStyle) {
-			case ANIMATION_STYLE_SLIDE_SIDEWAYS:
-				return R.anim.activity_trans_slide_right_out;
-			case ANIMATION_STYLE_SLIDE_UP:
-				return R.anim.activity_trans_slide_down_out;
-			case ANIMATION_STYLE_FADE_BACK:
+			case SlideSideways:
+				return R.anim.activity_trans_nudge_left;
+			case SlideUp:
+				return R.anim.activity_trans_scaleback;
+			case FadeBack:
 				return R.anim.activity_trans_scaleback_out;
+			case Dialog:
+				return R.anim.activity_trans_none;
+			default:
+				return 0;
+		}
+	}
+
+	private int getOutEnterAnimation(AnimationStyle animationStyle) {
+		switch(animationStyle) {
+			case SlideSideways:
+				return R.anim.activity_trans_nudge_right;
+			case SlideUp:
+				return R.anim.activity_trans_scaleup;
+			case FadeBack:
+				return R.anim.activity_trans_scaleup_in;
+			case Dialog:
+				return R.anim.activity_trans_none;
+			default:
+				return 0;
+		}
+	}
+
+	private int getOutExitAnimation(AnimationStyle animationStyle) {
+		switch(animationStyle) {
+			case SlideSideways:
+				return R.anim.activity_trans_slide_right_out;
+			case SlideUp:
+				return R.anim.activity_trans_slide_down_out;
+			case FadeBack:
+			case Dialog:
+				return R.anim.activity_trans_scaleup_out;
 			default:
 				return 0;
 		}

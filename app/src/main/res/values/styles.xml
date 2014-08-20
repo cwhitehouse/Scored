@@ -1,5 +1,7 @@
 <resources>
 
+	<!-- App Theme -->
+
 	<style name="MyBase" parent="android:Theme.Holo">
 		<item name="android:windowBackground">@color/backgroundPrimary</item>
 		<item name="android:textColorPrimary">@color/foregroundPrimary</item>
@@ -12,6 +14,19 @@
 
 	<style name="My" parent="MyBase"></style>
 
+	<style name="My.NoActionBar">
+		<item name="android:windowActionBar">false</item>
+		<item name="android:windowNoTitle">true</item>
+	</style>
+
+	<style name="My.Dialog" parent="@android:style/Theme.Dialog">
+		<item name="android:windowBackground">@android:color/transparent</item>
+		<item name="android:windowActionBar">false</item>
+		<item name="android:windowNoTitle">true</item>
+	</style>
+
+	<!-- App Theme - Views -->
+
 	<style name="My.Widget.EditText" parent="@android:style/Widget.Holo.EditText">
 		<item name="android:textColor">@color/foregroundPrimary</item>
 		<item name="android:textColorHint">@color/foregroundAlternate</item>
@@ -23,11 +38,6 @@
 		<item name="android:padding">@dimen/padding2x</item>
 	</style>
 
-	<style name="My.NoActionBar">
-		<item name="android:windowActionBar">false</item>
-		<item name="android:windowNoTitle">true</item>
-	</style>
-
 	<style name="My.ListView" parent="@android:style/Widget.ListView">
 		<item name="android:clipToPadding">false</item>
 		<item name="android:scrollbarStyle">outsideOverlay</item>
@@ -37,6 +47,34 @@
 	<style name="My.ActionBar" parent="android:Widget.Holo.ActionBar.Solid">
 		<item name="android:background">@color/backgroundPrimary</item>
 		<item name="android:displayOptions">showHome|showTitle</item>
+	</style>
+
+	<!-- =================================================
+		App Stuff
+	================================================= !-->
+
+	<!-- Minigolf -->
+
+	<style name="Minigolf" />
+	<style name="Minigolf.Score" />
+	<style name="Minigolf.Score.Picker" />
+
+	<style name="Minigolf.Score.Picker.Row">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">100dp</item>
+		<item name="android:orientation">horizontal</item>
+	</style>
+
+	<style name="Minigolf.Score.Picker.Text">
+		<item name="android:layout_weight">1</item>
+		<item name="android:layout_width">0dp</item>
+		<item name="android:layout_height">match_parent</item>
+		<item name="android:textStyle">bold</item>
+		<item name="android:textColor">@color/foreground_primary_pressable</item>
+		<item name="android:textSize">@dimen/textHuge</item>
+		<item name="android:gravity">center</item>
+		<item name="android:onClick">onScoreSelected</item>
+		<item name="android:clickable">true</item>
 	</style>
 
 </resources>

@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/minigolf_hole_entry"
+	android:id="@+id/minigolf_rond_entry"
 	android:layout_width="@dimen/minigolf_score_entry_size"
 	android:layout_height="@dimen/minigolf_score_entry_size">
 
 	<View
-		android:id="@+id/minigolf_hole_entry_highlight"
+		android:id="@+id/minigolf_round_entry_highlight"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:background="@color/backgroundPrimaryXLight"/>
 
 	<TextView
-		android:id="@+id/minigolf_hole_entry_number"
+		android:id="@+id/minigolf_round_entry_number"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:text="4"
