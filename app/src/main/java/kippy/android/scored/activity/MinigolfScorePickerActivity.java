@@ -2,6 +2,8 @@ package kippy.android.scored.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
@@ -17,6 +19,30 @@ public class MinigolfScorePickerActivity extends BaseActivity {
 	@Override
 	public int getLayoutID() {
 		return R.layout.dialog_minigolf_score_picker;
+	}
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+
+		View dialogTop = findViewById(R.id.dialog_top);
+		dialogTop.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				finish();
+			}
+		});
+
+		View dialogContent = findViewById(R.id.dialog_content);
+		dialogContent.setClickable(true);
+
+		View dialogBottom = findViewById(R.id.dialog_bottom);
+		dialogBottom.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				finish();
+			}
+		});
 	}
 
 	@Override
